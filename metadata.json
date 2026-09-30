@@ -1,0 +1,6 @@
+{
+  "name": "CCNA 200-301 考前衝刺儀錶板",
+  "description": "CCNA 200-301 考前衝刺，支援考綱比例隨機抽題、計時考場模式、弱點分析診斷與錯題本。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
