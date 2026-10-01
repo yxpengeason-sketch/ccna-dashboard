@@ -34,18 +34,23 @@ interface ExamSimulatorProps {
   onUpdateWrongbook: () => void;
   onGoToWrongbook: () => void;
   onGoToRadar: () => void;
+  initialStrategy?: ExamConfig['strategy'];
+  initialModule?: number;
 }
 
 export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
   allQuestions,
   wrongbook,
   onUpdateWrongbook,
-  onGoToWrongbook
+  onGoToWrongbook,
+  onGoToRadar,
+  initialStrategy,
+  initialModule
 }) => {
   // Config state
   const [questionCount, setQuestionCount] = useState<number>(20);
-  const [strategy, setStrategy] = useState<ExamConfig['strategy']>('weighted');
-  const [selectedModule, setSelectedModule] = useState<number>(0);
+  const [strategy, setStrategy] = useState<ExamConfig['strategy']>(initialStrategy || 'weighted');
+  const [selectedModule, setSelectedModule] = useState<number>(typeof initialModule === 'number' ? initialModule : 0);
   const [examStyle, setExamStyle] = useState<ExamConfig['style']>('simulation');
   const [timed, setTimed] = useState<boolean>(true);
   const [timeLimitMinutes, setTimeLimitMinutes] = useState<number>(30);
@@ -460,6 +465,13 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                 className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-200 hover:bg-slate-700 transition-all cursor-pointer"
               >
                 <span>前往錯題本</span>
+              </button>
+
+              <button
+                onClick={onGoToRadar}
+                className="flex items-center gap-2 rounded-lg border border-sky-500/40 bg-sky-950/40 px-4 py-2.5 text-xs sm:text-sm font-semibold text-sky-300 hover:bg-sky-900/50 transition-all cursor-pointer"
+              >
+                <span>前往弱點診斷</span>
               </button>
             </div>
           </div>
@@ -1338,7 +1350,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
               <HelpCircle className="h-3.5 w-3.5 text-sky-400" />
               <span>真實考場建議</span>
             </div>
-            CCNA 200-301 真時考試總題數通常為 80 到 100 題（限時 120 分鐘 + 非英語母語加時 30 分鐘），其實時間相當足夠。平時建議以約 20 題隨機抽題維持每日手感；考前一週建議以 50 題以上考古題計時模擬以適應考場壓力。考試當週刷錯題回顧錯誤概念。
+            CCNA 200-301 真實考試總題數通常為 70 到 90 題（限時 120 分鐘 + 非英語母語加時 30 分鐘），其實時間相當足夠。 平時建議以約 20 題隨機抽題維持每日手感；考前一週建議以 50 題以上考古題計時模擬以適應考場壓力。考試當週刷錯題回顧錯誤概念。
           </div>
         </div>
       </div>

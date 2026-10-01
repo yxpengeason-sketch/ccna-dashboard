@@ -3,10 +3,11 @@ import { WrongBookStore } from '../types';
 import { CCNA_TAXONOMY, REMEDIATION_GUIDE, MODULE_META } from '../data/ccnaData';
 import { detectConcept } from '../utils/quizUtils';
 import { BarChart3, AlertTriangle, ArrowRight, Sparkles } from 'lucide-react';
+import { ActiveTab } from './Navbar';
 
 interface WeaknessRadarViewProps {
   wrongbook: WrongBookStore;
-  onGoToTab: (tab: any, keyword: string) => void;
+  onGoToTab: (tab: ActiveTab, keyword: string) => void;
   onStartExamWithStrategy: (strategy: 'weakness' | 'module', moduleId?: number) => void;
 }
 
@@ -114,7 +115,7 @@ export const WeaknessRadarView: React.FC<WeaknessRadarViewProps> = ({
                     <div className="flex items-center gap-2">
                       {guide.kw && (
                         <button
-                          onClick={() => onGoToTab(guide.tab || 'tables', guide.kw)}
+                          onClick={() => onGoToTab((guide.tab as ActiveTab) || 'tables', guide.kw)}
                           className="px-2.5 py-1 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300 hover:bg-sky-500/25 transition-colors cursor-pointer"
                         >
                           🔍 查對照/指令

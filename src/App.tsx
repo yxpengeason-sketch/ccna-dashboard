@@ -13,12 +13,14 @@ import { WeaknessRadarView } from './components/WeaknessRadarView';
 import { ExamGuideView } from './components/ExamGuideView';
 import { CCNA_FULL_QUIZ } from './data/quizBank';
 import { loadWB, getUnresolvedWrongQuizList } from './utils/quizUtils';
-import { WrongBookStore } from './types';
+import { WrongBookStore, ExamConfig } from './types';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('schedule');
   const [wrongbook, setWrongbook] = useState<WrongBookStore>({});
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [examStrategy, setExamStrategy] = useState<ExamConfig['strategy']>('weighted');
+  const [examModule, setExamModule] = useState<number | undefined>(undefined);
 
   // Sync wrongbook from LocalStorage
   const refreshWrongbook = useCallback(() => {
@@ -36,7 +38,9 @@ export default function App() {
     setActiveTab(tab);
   };
 
-  const handleStartExamFromStrategy = () => {
+  const handleStartExamFromStrategy = (strategy: 'weakness' | 'module', moduleId?: number) => {
+    setExamStrategy(strategy);
+    setExamModule(moduleId);
     setActiveTab('exam');
   };
 
@@ -53,11 +57,14 @@ export default function App() {
       <main className="mx-auto max-w-7xl px-3 sm:px-6 py-5 sm:py-8">
         {activeTab === 'exam' && (
           <ExamSimulator
+            key={`${examStrategy}-${examModule}`}
             allQuestions={CCNA_FULL_QUIZ}
             wrongbook={wrongbook}
             onUpdateWrongbook={refreshWrongbook}
             onGoToWrongbook={() => setActiveTab('wrongbook')}
             onGoToRadar={() => setActiveTab('radar')}
+            initialStrategy={examStrategy}
+            initialModule={examModule}
           />
         )}
 

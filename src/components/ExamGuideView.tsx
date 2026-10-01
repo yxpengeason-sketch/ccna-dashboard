@@ -40,7 +40,7 @@ export const ExamGuideView: React.FC = () => {
             CCNA 正式考試<b>沒有「Previous」返回按鈕</b>，一旦提交即無法修改：
           </p>
           <ul className="text-xs text-slate-400 space-y-1 list-disc pl-4">
-            <li>單選/多選題：控制在 <b>≤ 50~60 秒/題</b>。</li>
+            <li>單選/多選題：控制在 <b>≤ 60-90 秒/題</b>。</li>
             <li>實機題（Labs）：預留 <b>6~8 分鐘/題</b>。</li>
           </ul>
         </div>
